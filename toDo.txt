@@ -1,0 +1,4 @@
+1) classe di stampa
+2) discussion con anzio su id table (non serve 2/3)
+3) stampa footnotes e references
+4) capire come manipolare lo score dando più importanza a ciò che diciamo noi
