@@ -1,54 +1,49 @@
 package com.example.datadiscovery;
 
+import com.example.datadiscovery.utils.Stopwords;
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.search.BooleanClause;
-import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
-import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class TableSearcher {
 
-    private final IndexSearcher searcher;
-    private final StandardAnalyzer analyzer;
+    public TopDocs search(String indexPath) throws Exception {
 
-    public TableSearcher(String indexPath) throws IOException {
-        Directory directory = FSDirectory.open(Paths.get(indexPath));
-        IndexReader reader = DirectoryReader.open(directory);
-        this.searcher = new IndexSearcher(reader);
-        this.analyzer = new StandardAnalyzer();
-    }
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Inserisci la tua query: ");
+        String query = scanner.nextLine();
 
-    public List<Document> search(String captionQueryStr, String tableDataQueryStr) throws Exception {
-        QueryParser captionParser = new QueryParser("caption", analyzer);
-        QueryParser tableDataParser = new QueryParser("tableData", analyzer);
+        // Apri l'indice
+        TopDocs topDocs;
+        try (IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)))) {
+            IndexSearcher searcher = new IndexSearcher(reader);
 
-        Query captionQuery = captionParser.parse(captionQueryStr);
-        Query tableDataQuery = tableDataParser.parse(tableDataQueryStr);
+            // Analyzer per analizzare la query
+            Analyzer stdAnalyzer = new StandardAnalyzer(new Stopwords().getStopWords());
 
-        BooleanQuery combinedQuery = new BooleanQuery.Builder()
-                .add(captionQuery, BooleanClause.Occur.SHOULD)
-                .add(tableDataQuery, BooleanClause.Occur.SHOULD)
-                .build();
+            // Definisci i campi da cercare
+            String[] fields = {"caption", "table", "footnotes", "references"};
+            Map<String, Float> boosts = new HashMap<>();
+            boosts.put("caption", 2.0f); // Dai maggiore peso a 'caption'
+            boosts.put("table", 1.5f);
+            boosts.put("footnotes", 1.2f);
+            boosts.put("references", 0.5f);
 
-        TopDocs results = searcher.search(combinedQuery, 10);
-        List<Document> documents = new ArrayList<>();
-        for (ScoreDoc scoreDoc : results.scoreDocs) {
-            Document doc = searcher.doc(scoreDoc.doc);
-            documents.add(doc);
+            MultiFieldQueryParser multiFieldParser = new MultiFieldQueryParser(fields, stdAnalyzer, boosts);
+            Query multiFieldQuery = multiFieldParser.parse(query);
+
+            // Esegui la ricerca
+            topDocs = searcher.search(multiFieldQuery, 10);
         }
-        return documents;
+        return topDocs;
     }
 }

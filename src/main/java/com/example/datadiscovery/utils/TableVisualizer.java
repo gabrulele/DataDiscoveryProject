@@ -17,7 +17,7 @@ public class TableVisualizer {
             Elements tables = doc.select("table");
 
             for (Element table : tables) {
-                System.out.println("\nTabella trovata:");
+                System.out.println("\n-Tabella trovata-");
 
                 // Preparazione per calcolare la larghezza delle colonne
                 List<List<String>> tableData = new ArrayList<>();
@@ -32,10 +32,10 @@ public class TableVisualizer {
                     for (Element cell : cells) {
                         // Pulisce il testo della cella rimuovendo simboli e stringhe specifiche
                         String cleanedText = cell.text()
-                                .replaceAll("[\\\\]\\w+", "")          // Rimuove simboli in piu
-                                .replaceAll("\\\\mathbf\\{.*?\\}", "")  // Rimuove \mathbf{}
+                                .replaceAll("\\\\\\w+", "")          // Rimuove simboli in piu
+                                .replaceAll("\\\\mathbf\\{.*?}", "")  // Rimuove \mathbf{}
                                 .replaceAll("±.*?plus-or-minus", "")    // Rimuove ± e "plus-or-minus"
-                                .replaceAll("\\{.*?\\}", "")            // Rimuove contenuti tra parentesi graffe {}
+                                .replaceAll("\\{.*?}", "")            // Rimuove contenuti tra parentesi graffe {}
                                 .replaceAll("%percent\\d+\\d+\\\\%", "%") // Rimuove "%percentXXX%" e lo converte in "%"
                                 .replaceAll("percent", "%")            // Sostituisce "percent" con "%"
                                 .replaceAll("\\s{2,}", " ");           // Rimuove spazi multipli

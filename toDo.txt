@@ -1,4 +1,6 @@
-1) classe di stampa
-2) discussion con anzio su id table (non serve 2/3)
-3) stampa footnotes e references
-4) capire come manipolare lo score dando più importanza a ciò che diciamo noi
+1) capire come manipolare lo score dando più importanza a ciò che diciamo noi
+2) riusare il parsing HTML - levare tutti i tag e prendere solo il testo
+3) per la relazione problemi su json con coppie chiave valore non conformi  a TableData
+   e footnote come stringa unica è errore grave, scandaloso errore su liste di liste nelle references
+4) Dare più importanza al fatto che compaiano tutti i termini e non le singole occorrenze
+5) Query: Discriminative efficiency da vedere

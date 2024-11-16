@@ -1,49 +1,54 @@
 package com.example.datadiscovery;
 
-import com.example.datadiscovery.utils.TableData;
+import com.example.datadiscovery.utils.Stopwords;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.codecs.simpletext.SimpleTextCodec;
 
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TableIndexer {
-    private Directory indexDirectory;
-    private Analyzer analyzer;
 
-    public TableIndexer() {
-        this.indexDirectory = new RAMDirectory();
-        this.analyzer = new StandardAnalyzer();
-    }
+    public void indexTables(List<Document> documents) throws IOException {
+        try {
 
-    public void indexTables(List<TableData> tables) throws IOException {
-        IndexWriterConfig config = new IndexWriterConfig(analyzer);
-        try (IndexWriter writer = new IndexWriter(indexDirectory, config)) {
-            for (TableData table : tables) {
-                Document doc = new Document();
-                doc.add(new TextField("table", table.getTable(), TextField.Store.YES));
-                doc.add(new TextField("caption", table.getCaption(), TextField.Store.YES));
+            // Definiamo dove salvare l' indice Lucene
+            Directory directory = FSDirectory.open(Paths.get("C:/Users/hp/DataDiscoveryProject/src/index"));
 
-                for (String footnote : table.getFootnotes()) {
-                    doc.add(new TextField("footnote", String.join(" ", footnote), TextField.Store.NO));
-                }
+            Map<String, Analyzer> perFieldAnalyzers = new HashMap<>();
+            StandardAnalyzer stdAnalyzer = new StandardAnalyzer(new Stopwords().getStopWords());
 
-                for (String reference : table.getReferences()) {
-                    doc.add(new TextField("rows", String.join(" ", reference), TextField.Store.NO));
-                }
+            perFieldAnalyzers.put("caption",  stdAnalyzer);
+            perFieldAnalyzers.put("table", stdAnalyzer);
+            perFieldAnalyzers.put("footnotes",  stdAnalyzer);
+            perFieldAnalyzers.put("references", stdAnalyzer);
 
-                writer.addDocument(doc);
+            Analyzer perFieldAnalyzer = new PerFieldAnalyzerWrapper(new EnglishAnalyzer(), perFieldAnalyzers);
+
+            // Definiamo la configurazione dell' IndexWriter
+            IndexWriterConfig config = new IndexWriterConfig(perFieldAnalyzer);
+            config.setCodec(new SimpleTextCodec());
+            IndexWriter writer = new IndexWriter(directory, config);
+
+            for (Document document : documents) {
+                writer.addDocument(document); // Indicizzazione dei documenti
             }
-        }
-    }
 
-    public Directory getIndexDirectory() {
-        return indexDirectory;
+            writer.commit();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
