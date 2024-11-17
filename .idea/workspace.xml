@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5787f861-9beb-406c-8377-03443af3a155" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/CreateDocuments.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/metrics/EvaluationMetrics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/TableIndexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/TableIndexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/TableSearcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/TableSearcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/JsonTableParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/JsonToTableData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/Stopwords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/Stopwords.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/TableData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/TableData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/TableVisualizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/TableVisualizer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toDo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/toDo.txt" afterDir="false" />
     </list>
@@ -98,7 +91,8 @@
       <workItem from="1731686813373" duration="3026000" />
       <workItem from="1731697844755" duration="6356000" />
       <workItem from="1731711035588" duration="2917000" />
-      <workItem from="1731743795745" duration="37423000" />
+      <workItem from="1731743795745" duration="37703000" />
+      <workItem from="1731835754045" duration="12660000" />
     </task>
     <servers />
   </component>

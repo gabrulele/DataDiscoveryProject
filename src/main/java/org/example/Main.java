@@ -2,6 +2,7 @@ package org.example;
 
 import com.example.datadiscovery.TableIndexer;
 import com.example.datadiscovery.TableSearcher;
+import com.example.datadiscovery.metrics.EvaluationMetrics;
 import com.example.datadiscovery.utils.CreateDocuments;
 import com.example.datadiscovery.utils.JsonToTableData;
 import com.example.datadiscovery.utils.TableData;
@@ -42,12 +43,19 @@ public class Main {
             IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get("C:/Users/hp/DataDiscoveryProject/src/index")));
             IndexSearcher indexSearcher = new IndexSearcher(reader);
             TableVisualizer visualizer = new TableVisualizer(); // Visualizer per la visualizzazione del campo table
+            EvaluationMetrics evalMetrics = new EvaluationMetrics();
 
             while(true){
                 TopDocs topDocs = tableSearcher.search("C:/Users/hp/DataDiscoveryProject/src/index");
 
+                // Stampa le metriche complessive
+                System.out.println("\n<Metriche complessive>");
+                System.out.println("NDCG: " + evalMetrics.calculateNDCG(evalMetrics.assignRelevances(topDocs), topDocs));
+                System.out.println("MRR: " + evalMetrics.calculateMRR(topDocs.scoreDocs, evalMetrics.averageScore(topDocs.scoreDocs)));
+
                 // Stampa il numero totale di risultati
                 System.out.println("Numero totale di risultati trovati: " + topDocs.totalHits.value + "\n");
+                System.out.println();
                 for (int i = 0; i < topDocs.scoreDocs.length; i++) {
                     ScoreDoc scoreDoc = topDocs.scoreDocs[i]; // Ottieni il corrispondente ScoreDoc
 
@@ -68,7 +76,7 @@ public class Main {
                     String[] references = doc.getValues("references");
                     TableData.printFormattedList(List.of(references),70);
 
-                    System.out.println("\n<------------------------------------------------>\n");
+                    System.out.println("\n<------------------------------------------------------------------------>\n");
                 }
 
                 Scanner scanner = new Scanner(System.in);
