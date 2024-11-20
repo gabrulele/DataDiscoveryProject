@@ -17,6 +17,7 @@ import org.apache.lucene.store.FSDirectory;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,8 +26,12 @@ public class Main {
     public static void main(String[] args) throws IOException {
         try {
 
+            float queryCounter = 0; // Counter per il numero di query eseguite
+            List<Integer> relevanceRankings = new ArrayList<>(); // Array[i] = ranking del doc più rilevante per la query i+1-esima
+
+            /*
             // Creazione dell'indice
-            String directoryPath = "C:/Users/hp/papers/urls_htmls_tables/test_tables";
+            String directoryPath = "C:/Users/hp/papers/urls_htmls_tables/urls_htmls_tables/all_tables";
 
             List<TableData> tableDataList = new JsonToTableData().
                                                 createTableDataMap(directoryPath); // parsing da JSON a TableData
@@ -36,7 +41,7 @@ public class Main {
             TableIndexer tableIndexer = new TableIndexer();
             tableIndexer.indexTables(documentsList);
             System.out.println("Indicizzazione completata con successo!");
-
+            */
 
             // Avvio della ricerca nell'indice, con loop per ricerche ripetute
             TableSearcher tableSearcher = new TableSearcher();
@@ -46,12 +51,8 @@ public class Main {
             EvaluationMetrics evalMetrics = new EvaluationMetrics();
 
             while(true){
+                queryCounter++;
                 TopDocs topDocs = tableSearcher.search("C:/Users/hp/DataDiscoveryProject/src/index");
-
-                // Stampa le metriche complessive
-                System.out.println("\n<Metriche complessive>");
-                System.out.println("NDCG: " + evalMetrics.calculateNDCG(evalMetrics.assignRelevances(topDocs), topDocs));
-                System.out.println("MRR: " + evalMetrics.calculateMRR(topDocs.scoreDocs, evalMetrics.averageScore(topDocs.scoreDocs)));
 
                 // Stampa il numero totale di risultati
                 System.out.println("Numero totale di risultati trovati: " + topDocs.totalHits.value + "\n");
@@ -79,11 +80,23 @@ public class Main {
                     System.out.println("\n<------------------------------------------------------------------------>\n");
                 }
 
+                // Scelta del doc più rilevante in modalità Feedback Utente
                 Scanner scanner = new Scanner(System.in);
+                System.out.print("Digita la posizione del documento più rilevante [1-10]: ");
+                String userRank = scanner.nextLine();
+                relevanceRankings.add(Integer.valueOf(userRank));
+
                 System.out.print("Vuoi continuare? Y/n ");
                 String exit = scanner.nextLine();
 
                 if (exit.equalsIgnoreCase("n")) {
+
+                    // Stampa le metriche complessive
+                    System.out.println("\n<Metriche complessive>");
+
+                    // System.out.println("NDCG: " + evalMetrics.calculateNDCG(evalMetrics.assignRelevances(topDocs), topDocs));
+                    System.out.println("MRR: " + evalMetrics.calculateMRR(relevanceRankings,queryCounter));
+
                     System.out.println("Uscita dal programma.");
                     break;
                 }

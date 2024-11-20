@@ -57,14 +57,15 @@ public class EvaluationMetrics {
     }
 
 
-    // Calcolo di MRR
-    public double calculateMRR(ScoreDoc[] scoreDocs, float relevanceThreshold) {
-        for (int i = 0; i < scoreDocs.length; i++) {
-            if (scoreDocs[i].score >= relevanceThreshold) {
-                return 1.0 / (i + 1);
-            }
+    // Calcolo di MRR - Feedback Utente
+    public float calculateMRR(List<Integer> relevanceRankings, float queryCounter) {
+        float sum = 0;
+
+        for(int rank : relevanceRankings){
+            sum += 1/rank;
         }
-        return 0.0;
+
+        return (float)(sum / queryCounter);
     }
 
     // Calcolo di NDCG
