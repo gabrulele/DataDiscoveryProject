@@ -1,33 +1,27 @@
 package org.example;
 
-import com.example.datadiscovery.TableIndexer;
-import com.example.datadiscovery.TableSearcher;
 import com.example.datadiscovery.metrics.EvaluationMetrics;
-import com.example.datadiscovery.utils.CreateDocuments;
-import com.example.datadiscovery.utils.JsonToTableData;
-import com.example.datadiscovery.utils.TableData;
-import com.example.datadiscovery.utils.TableVisualizer;
+import com.example.datadiscovery.utils.*;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
         try {
-
-            float queryCounter = 0; // Counter per il numero di query eseguite
-            List<Integer> relevanceRankings = new ArrayList<>(); // Array[i] = ranking del doc più rilevante per la query i+1-esima
 
             /*
             // Creazione dell'indice
@@ -43,20 +37,45 @@ public class Main {
             System.out.println("Indicizzazione completata con successo!");
             */
 
-            // Avvio della ricerca nell'indice, con loop per ricerche ripetute
-            TableSearcher tableSearcher = new TableSearcher();
-            IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get("C:/Users/hp/DataDiscoveryProject/src/index")));
+            // Inizializzazione variabili d'uso
+            String indexPath = "C:/Users/hp/DataDiscoveryProject/src/index";
+            float queryCounter = 0; // Counter per il numero di query eseguite
+            List<Integer> relevanceRankings = new ArrayList<>(); // Array[i] = ranking del doc più rilevante per la query i+1-esima
+
+            // Avvio della ricerca
+            IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
             IndexSearcher indexSearcher = new IndexSearcher(reader);
-            TableVisualizer visualizer = new TableVisualizer(); // Visualizer per la visualizzazione del campo table
+            TableVisualizer visualizer = new TableVisualizer(); // Visualizer per il campo 'table'
             EvaluationMetrics evalMetrics = new EvaluationMetrics();
 
+            // Analyzer per la query
+            Analyzer stdAnalyzer = new StandardAnalyzer(new Stopwords().getStopWords());
+
+            // Definizione dei campi di ricerca
+            String[] fields = {"caption", "table", "footnotes", "references"};
+            Map<String, Float> boosts = new HashMap<>();
+            boosts.put("caption", 2.0f); // Dai maggiore peso a 'caption'
+            boosts.put("table", 1.5f);
+            boosts.put("footnotes", 1.2f);
+            boosts.put("references", 0.5f);
+
+            MultiFieldQueryParser multiFieldParser = new MultiFieldQueryParser(fields, stdAnalyzer, boosts);
+
+            Scanner scanner = new Scanner(System.in);
+
+            // Avvio del loop di ricerca
             while(true){
                 queryCounter++;
-                TopDocs topDocs = tableSearcher.search("C:/Users/hp/DataDiscoveryProject/src/index");
+
+                System.out.print("Inserisci la tua query: ");
+                String query = scanner.nextLine();
+
+                // Fase di esecuzione della query
+                Query multiFieldQuery = multiFieldParser.parse(query);
+                TopDocs topDocs = indexSearcher.search(multiFieldQuery, 10);
 
                 // Stampa il numero totale di risultati
-                System.out.println("Numero totale di risultati trovati: " + topDocs.totalHits.value + "\n");
-                System.out.println();
+                System.out.println("Numero totale di risultati trovati: " + topDocs.totalHits.value + "\n\n");
                 for (int i = 0; i < topDocs.scoreDocs.length; i++) {
                     ScoreDoc scoreDoc = topDocs.scoreDocs[i]; // Ottieni il corrispondente ScoreDoc
 
@@ -81,14 +100,13 @@ public class Main {
                 }
 
                 // Scelta del doc più rilevante in modalità Feedback Utente
-                Scanner scanner = new Scanner(System.in);
                 System.out.print("Digita la posizione del documento più rilevante [1-10]: ");
                 String userRank = scanner.nextLine();
                 relevanceRankings.add(Integer.valueOf(userRank));
 
+                // Valuta la fine della ricerca
                 System.out.print("Vuoi continuare? Y/n ");
                 String exit = scanner.nextLine();
-
                 if (exit.equalsIgnoreCase("n")) {
 
                     // Stampa le metriche complessive
@@ -101,6 +119,9 @@ public class Main {
                     break;
                 }
             }
+
+            scanner.close();
+            reader.close();
         } catch (IOException e) {
             System.err.println("Errore durante l'indicizzazione: " + e.getMessage());
         } catch (Exception e) {

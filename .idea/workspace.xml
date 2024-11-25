@@ -9,9 +9,8 @@
       <change beforePath="$PROJECT_DIR$/src/index/_0.scf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index/_0.si" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index/segments_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index/write.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/TableSearcher.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/metrics/EvaluationMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/metrics/EvaluationMetrics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/JsonToTableData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/JsonToTableData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,6 +97,10 @@
       <workItem from="1731743795745" duration="37703000" />
       <workItem from="1731835754045" duration="12660000" />
       <workItem from="1732113202758" duration="11976000" />
+      <workItem from="1732126156056" duration="1117000" />
+      <workItem from="1732134608838" duration="5546000" />
+      <workItem from="1732140663404" duration="3768000" />
+      <workItem from="1732188256939" duration="291000" />
     </task>
     <servers />
   </component>

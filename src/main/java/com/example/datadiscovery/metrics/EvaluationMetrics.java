@@ -2,7 +2,6 @@ package com.example.datadiscovery.metrics;
 
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-
 import java.util.*;
 
 public class EvaluationMetrics {
@@ -57,11 +56,11 @@ public class EvaluationMetrics {
     }
 
 
-    // Calcolo di MRR - Feedback Utente
+    // Calcolo di MRR basato su Feedback Utente
     public float calculateMRR(List<Integer> relevanceRankings, float queryCounter) {
         float sum = 0;
 
-        for(int rank : relevanceRankings){
+        for(float rank : relevanceRankings){
             sum += 1/rank;
         }
 
