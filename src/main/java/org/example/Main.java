@@ -7,13 +7,13 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.StoredFields;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
-
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
@@ -23,9 +23,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         try {
 
-            /*
+            
             // Creazione dell'indice
-            String directoryPath = "C:/Users/hp/papers/urls_htmls_tables/urls_htmls_tables/all_tables";
+            String directoryPath = "C:/Users/rikyj/Documents/university/Magistrale/Ingegneria dei dati/urls_htmls_tables/urls_htmls_tables/all_tables";
 
             List<TableData> tableDataList = new JsonToTableData().
                                                 createTableDataMap(directoryPath); // parsing da JSON a TableData
@@ -35,10 +35,10 @@ public class Main {
             TableIndexer tableIndexer = new TableIndexer();
             tableIndexer.indexTables(documentsList);
             System.out.println("Indicizzazione completata con successo!");
-            */
+
 
             // Inizializzazione variabili d'uso
-            String indexPath = "C:/Users/hp/DataDiscoveryProject/src/index";
+            String indexPath = "C:/Users/rikyj/Documents/university/Magistrale/Ingegneria dei dati/HW3/src/index";
             float queryCounter = 0; // Counter per il numero di query eseguite
             List<Integer> relevanceRankings = new ArrayList<>(); // Array[i] = ranking del doc più rilevante per la query i+1-esima
 
@@ -73,13 +73,14 @@ public class Main {
                 // Fase di esecuzione della query
                 Query multiFieldQuery = multiFieldParser.parse(query);
                 TopDocs topDocs = indexSearcher.search(multiFieldQuery, 10);
+                StoredFields storedFields = indexSearcher.storedFields();
 
-                // Stampa il numero totale di risultati
-                System.out.println("Numero totale di risultati trovati: " + topDocs.totalHits.value + "\n\n");
+                // Stampa il numero totale di risultati                
+                System.out.println("Numero totale di risultati trovati: " + topDocs.totalHits.value() + "\n\n");
                 for (int i = 0; i < topDocs.scoreDocs.length; i++) {
                     ScoreDoc scoreDoc = topDocs.scoreDocs[i]; // Ottieni il corrispondente ScoreDoc
 
-                    Document doc = indexSearcher.doc(scoreDoc.doc);
+                    Document doc =  storedFields.document(scoreDoc.doc);
 
                     System.out.printf("Risultato #%d (Score: %.4f)\n", i + 1, scoreDoc.score); // Stampa lo score
 
