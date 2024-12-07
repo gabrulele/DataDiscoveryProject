@@ -23,7 +23,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         try {
 
-            
+            /* 
+
             // Creazione dell'indice
             String directoryPath = "C:/Users/rikyj/Documents/university/Magistrale/Ingegneria dei dati/urls_htmls_tables/urls_htmls_tables/all_tables";
 
@@ -35,6 +36,8 @@ public class Main {
             TableIndexer tableIndexer = new TableIndexer();
             tableIndexer.indexTables(documentsList);
             System.out.println("Indicizzazione completata con successo!");
+
+            */
 
 
             // Inizializzazione variabili d'uso

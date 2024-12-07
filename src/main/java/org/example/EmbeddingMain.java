@@ -51,7 +51,8 @@ public class EmbeddingMain {
 
 
             // Fase di esecuzione della query
-            Query embeddedingQuery = new KnnFloatVectorQuery("embedding", embeddingModel.embed(TextSegment.from(query)).content().vector(), 10);
+            float embeddingVector[] = embeddingModel.embed(TextSegment.from(query)).content().vector();
+            Query embeddedingQuery = new KnnFloatVectorQuery("embedding", embeddingVector, 10);
             TopDocs topDocs = indexSearcher.search(embeddedingQuery, 10);
             StoredFields storedFields = indexSearcher.storedFields();
 
