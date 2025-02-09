@@ -10,7 +10,6 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.codecs.simpletext.SimpleTextCodec;
-
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -24,7 +23,7 @@ public class TableIndexer {
         try {
 
             // Definiamo dove salvare l' indice Lucene
-            Directory directory = FSDirectory.open(Paths.get("C:/Users/rikyj/Documents/university/Magistrale/Ingegneria dei dati/HW3/src/index"));
+            Directory directory = FSDirectory.open(Paths.get("C:/Users/hp/DataDiscoveryProject_3HW/src/index"));
 
             Map<String, Analyzer> perFieldAnalyzers = new HashMap<>();
             StandardAnalyzer stdAnalyzer = new StandardAnalyzer(new Stopwords().getStopWords());
@@ -33,8 +32,6 @@ public class TableIndexer {
             perFieldAnalyzers.put("table", stdAnalyzer);
             perFieldAnalyzers.put("footnotes",  stdAnalyzer);
             perFieldAnalyzers.put("references", stdAnalyzer);
-
-            
 
             Analyzer perFieldAnalyzer = new PerFieldAnalyzerWrapper(new EnglishAnalyzer(), perFieldAnalyzers);
 

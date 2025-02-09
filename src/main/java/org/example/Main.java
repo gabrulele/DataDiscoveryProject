@@ -23,8 +23,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         try {
 
-            /* 
-
+            /*
             // Creazione dell'indice
             String directoryPath = "C:/Users/rikyj/Documents/university/Magistrale/Ingegneria dei dati/urls_htmls_tables/urls_htmls_tables/all_tables";
 
@@ -36,12 +35,10 @@ public class Main {
             TableIndexer tableIndexer = new TableIndexer();
             tableIndexer.indexTables(documentsList);
             System.out.println("Indicizzazione completata con successo!");
-
             */
 
-
             // Inizializzazione variabili d'uso
-            String indexPath = "C:/Users/rikyj/Documents/university/Magistrale/Ingegneria dei dati/HW3/src/index";
+            String indexPath = "C:/Users/hp/DataDiscoveryProject_3HW/src/index";
             float queryCounter = 0; // Counter per il numero di query eseguite
             List<Integer> relevanceRankings = new ArrayList<>(); // Array[i] = ranking del doc più rilevante per la query i+1-esima
 

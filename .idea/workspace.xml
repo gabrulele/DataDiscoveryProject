@@ -5,12 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5787f861-9beb-406c-8377-03443af3a155" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/index/_1.scf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_3.scf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_3.si" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_d.fld" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_d.inf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_d.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_d.pst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_d.si" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_e.scf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_o.fld" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_o.inf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_o.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_o.pst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_o.si" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_p.scf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_p.si" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_q.scf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/_q.si" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index/segments_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index/_0.scf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index/_0.si" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index/segments_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/TableSearcher.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/metrics/EvaluationMetrics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/metrics/EvaluationMetrics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index/_e.si" beforeDir="false" afterPath="$PROJECT_DIR$/src/index/_e.si" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/TableIndexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/datadiscovery/utils/TableIndexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +49,11 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="workspaceImportEnabled" value="true" />
@@ -50,13 +72,14 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/hp/DataDiscoveryProject_3HW&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Colors&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -101,6 +124,9 @@
       <workItem from="1732134608838" duration="5546000" />
       <workItem from="1732140663404" duration="3768000" />
       <workItem from="1732188256939" duration="291000" />
+      <workItem from="1738402750350" duration="315000" />
+      <workItem from="1738403097847" duration="4946000" />
+      <workItem from="1739121770176" duration="1619000" />
     </task>
     <servers />
   </component>
